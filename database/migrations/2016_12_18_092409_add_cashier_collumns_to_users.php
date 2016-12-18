@@ -16,8 +16,9 @@ class AddCashierCollumnsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
 
             //Laravel Cashier - Stripe
-            $table->string('stripe_id')->nullable()->after('updated_at');
-            $table->string('card_brand')->nullable()->after('stripe_id');
+            $table->string('braintree_id')->nullable()->after('updated_at');
+            $table->string('paypal_email')->nullable()->after('braintree_id');
+            $table->string('card_brand')->nullable()->after('paypal_email');
             $table->string('card_last_four')->nullable()->after('card_brand');
             $table->timestamp('trial_ends_at')->nullable()->after('card_last_four');
         });

@@ -18,8 +18,8 @@ class CreateSubscriptionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name');
-            $table->string('stripe_id');
-            $table->string('stripe_plan');
+            $table->string('braintree_id');
+            $table->string('braintree_plan');
             $table->integer('quantity');
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
