@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -24,6 +24,15 @@ class CrmController extends Controller
 
         return response()->json($customers, 200);
 
+    }
+
+    public function getCustomerInfo(Request $request){
+
+        $customerID = $request->all();
+
+        $customerInfo = Customer::where('id', $customerID)->get()->toJson();
+
+        return response()->json($customerInfo, 200);
     }
 
 

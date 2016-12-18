@@ -25,3 +25,6 @@ Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::post('/getCustomers', 'CrmController@getAllCustomers');
+
+Route::post('/getCustomerInfo', 'CrmController@getCustomerInfo');
+

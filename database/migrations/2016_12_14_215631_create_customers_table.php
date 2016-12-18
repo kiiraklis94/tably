@@ -22,8 +22,8 @@ class CreateCustomersTable extends Migration
             $table->string('phone_no');
             $table->string('gender');
             $table->date('b_day');
-            $table->boolean('vip');
-            $table->date('last_visited');
+            $table->boolean('vip')->default(0);
+            $table->date('last_visited')->nullable();
             $table->timestamps();
 
             $table->foreign('u_id')->references('id')->on('users');
