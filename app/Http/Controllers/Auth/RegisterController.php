@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Team;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Request;
+use Mpociot\Teamwork\Facades\Teamwork;
 
 class RegisterController extends Controller
 {
@@ -62,10 +67,46 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $inviteToken = Teamwork::getInviteFromAcceptToken( Request::session()->get('invite_token') ); //Gets invite token from session
+
+        if($inviteToken == null){
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'trial_ends_at' => Carbon::now()->addDays(30)->format('Y-m-d H:i:s'),
+            ]);
+
+            //Add newly created user to team
+            $team = new Team();
+            $team->owner_id = $user->id;
+            $team->name = $user->name . "'s Team";
+            $team->save();
+
+            $user->attachTeam($team);
+
+            //Attach "Owner" role(with id 2) to newly created user
+            $user->attachRole(2);
+
+        } else {
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+
+            //The next two lines are used instead of the acceptInvite() command to specify user/team.
+            $user->attachTeam( $inviteToken->team );
+            $inviteToken->delete();
+        }
+
+        return $user;
+
     }
+
+
+
+
 }

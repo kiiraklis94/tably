@@ -16,41 +16,33 @@ function getCustomers() {
     });
     $.ajax({
         type: 'POST',
-        url: '/getCustomers',
+        url: 'crm/getCustomers',
         success: function (data) {
-            // alert(data);
-            // $.each(JSON.parse(data), function (i, item) {
-            //     var html =
-            //         "<tr>" +
-            //             "<td>"+ item.name + "</td>" +
-            //             "<td>"+ item.email + "</td>" +
-            //             "<td>"+ item.phone_no + "</td>" +
-            //             "<td>"+ item.gender + "</td>" +
-            //             "<td>"+ item.b_day + "</td>" +
-            //             "<td>"+ item.vip + "</td>" +
-            //         "</tr>";
-            //     $('#customers-table tbody').append(html);
-            //
-            // } );
             $('#customers-table').DataTable({
                 data: JSON.parse(data),
                 responsive: true,
                 columns: [
-                    {data: "name"},
-                    {data: "email"},
-                    {data: "phone_no"},
-                    {data: "gender"},
-                    {data: "b_day"},
-                    {data: "vip"},
+                    {data: "name", "width": "25%"},
+                    {data: "email", "width": "25%"},
+                    {data: "phone_no", "width": "10%"},
+                    {data: "gender", "width": "10%"},
+                    {data: "b_day", "width": "15%"},
+                    {data: "vip", "width": "10%"},
                     {
                         "data": null,
                         "sortable": false,
+                        "width": "5%",
                         "render": function (data, type, full, meta) {
                             return '<button id="edit-button" data-id="' + full.id + '" data-toggle="modal" data-target="#crm_edit_customer_modal" class="btn btn-primary"><i class="fa fa-cog" aria-hidden="true"></i></button>'
                         }
                     }
                 ]
             });
+
+            var table = $('#customers-table').DataTable();
+
+            $('#container').css( 'display', 'block' );
+            table.columns.adjust().draw();
 
         }
 
@@ -68,7 +60,7 @@ function getCustomers() {
         });
         $.ajax({
             type: 'POST',
-            url: '/getCustomerInfo',
+            url: 'crm/getCustomerInfo',
             data: {'customerID': customerID},
             success: function (data) {
                 var resp = JSON.parse(data);

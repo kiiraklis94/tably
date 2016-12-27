@@ -19,7 +19,19 @@ class AppServiceProvider extends ServiceProvider
         \Braintree_Configuration::publicKey(config('services.braintree.public_key'));
         \Braintree_Configuration::privateKey(config('services.braintree.private_key'));
 
+        //Set currency for Laravel Cashier
         Cashier::useCurrency('eur', '€');
+
+        //Add newly created user to team
+//        User::created( function($user) {
+//            $team = new Team();
+//            $team->owner_id = Auth::id();
+//            $team->name = 'main';
+//            $team->save();
+//
+//            $user = User::where('id', '=', Auth::id())->first();
+//            $user->attachTeam($team, true);
+//        });
     }
 
     /**
@@ -29,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 }

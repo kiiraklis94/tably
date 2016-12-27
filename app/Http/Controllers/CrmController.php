@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Auth;
 class CrmController extends Controller
 {
 
+    public function index(){
+        return view('crm');
+    }
+
     public function getAllCustomers(){
 
-        $userID = Auth::user()->id;
+        $userID = Auth::id();
 
         $customers = Customer::where('u_id', $userID)->get()->toJson();
 

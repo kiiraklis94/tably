@@ -4,7 +4,7 @@
 
 
 
-@section('header-title', 'Customer Database')
+@section('header-title', 'Customers')
 
 @section('header-other')
 

@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
 
             $table->increments('id')->unsigned()->unique();
-            $table->integer('under');
+//            $table->integer('under');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             //Foreign Keys
-            $table->foreign('under')->references('id')->on('users');
+//            $table->foreign('under')->references('id')->on('users');
         });
     }
 
