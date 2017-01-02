@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('templates.head') 
+    @include('templates.head')
     <title>Tably Pro</title>
 </head>
 <body>

@@ -4,16 +4,17 @@
 
 @section('header-title', '"' . $team->name . '"' . ' members')
 
+@section('header-other')
+    <a href="{{route('teams.index')}}" class="btn btn-primary pull-right">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+@endsection
+
 @section('content')
 
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading clearfix">
-                        "{{$team->name}}" members
-                        <a href="{{route('teams.index')}}" class="btn btn-sm btn-default pull-right">
-                            <i class="fa fa-arrow-left"></i> Back
-                        </a>
-                    </div>
+
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>

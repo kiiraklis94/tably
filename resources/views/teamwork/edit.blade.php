@@ -4,10 +4,16 @@
 
 @section('header-title', 'Edit "' . $team->name. '" Team')
 
+@section('header-other')
+    <a href="{{route('teams.index')}}" class="btn btn-primary pull-right">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+@endsection
+
 @section('content')
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Edit team {{$team->name}}</div>
+
             <div class="panel-body">
                 <form class="form-horizontal" method="post" action="{{route('teams.update', $team)}}">
                     <input type="hidden" name="_method" value="PUT"/>

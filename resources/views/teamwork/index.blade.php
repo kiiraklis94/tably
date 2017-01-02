@@ -4,16 +4,17 @@
 
 @section('header-title', 'Teams')
 
+@section('header-other')
+    <a class="pull-right btn btn-primary" href="{{route('teams.create')}}">
+        <i class="fa fa-plus"></i> Create team
+    </a>
+@endsection
+
 @section('content')
 
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-                Teams
-                <a class="pull-right btn btn-default btn-sm" href="{{route('teams.create')}}">
-                    <i class="fa fa-plus"></i> Create team
-                </a>
-            </div>
+
             <div class="panel-body">
                 <table class="table table-striped">
                     <thead>
